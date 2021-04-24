@@ -1,7 +1,4 @@
 <?php
-include_once 'autoload.php';
-$personneRepository = new PersonneRepository();
-$personnes = $personneRepository->findAll();
 include_once 'header.php';
 ?>
 
@@ -11,19 +8,28 @@ include_once 'header.php';
         <th>Nom</th>
         <th>CIN</th>
         <th>Section</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
-    <?php foreach ($personnes as $personne) {
-    ?>
-    <tr>
-            <td><?= $personne->nom ?></td>
-        <td><?= $personne->prenom ?></td>
-        <td><?= $personne->CIN ?></td>
-        <td><?= $personne->section ?></td>
-    </tr>
+    
+    <?php include "dbConn.php"; // Using database connection file here
+
+$records = mysqli_query($db,"select * from `etudiant`"); // fetch data from database
+
+while($data = mysqli_fetch_array($records))
+{
+?>
+  <tr>
+    <td><?php echo $data['nom']; ?></td>
+    <td><?php echo $data['prenom']; ?></td>
+    <td><?php echo $data['CIN']; ?></td>    
+    <td><?php echo $data['section']; ?></td>    
+    <td><a href="edit.php?CIN=<?php echo $data['CIN']; ?>">Edit</a></td>
+    <td><a href="delete.php?CIN=<?php echo $data['CIN']; ?>">Delete</a></td>
+  </tr>	
     <?php
     }
     ?>
 </table>
-
 </body>
 </html>
