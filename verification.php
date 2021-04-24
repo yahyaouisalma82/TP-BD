@@ -19,7 +19,7 @@ if (isset($username)&&isset($password)) {
         header('location:home.php');
     } else {
         $_SESSION['errorMessage']="Veuillez vérifier vos credenitals";
-        header('location:login.php');
+        header('location:index.php');
     }
 } else {
     $_SESSION['errorMessage']="Veuillez vérifier vos credenitals";
